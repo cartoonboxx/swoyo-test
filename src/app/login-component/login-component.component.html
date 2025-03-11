@@ -1,0 +1,11 @@
+<form class="login-form" [formGroup]="loginForm">
+  <h1>Регистрация</h1>
+  <div class="login-form__input-box">
+    <input class="login-form__input-box__input"
+           type="text"
+           placeholder="Имя пользователя"
+           required
+    >
+  </div>
+  <button class="login-form__btn" (click)="createNewUser($event)">Создать</button>
+</form>

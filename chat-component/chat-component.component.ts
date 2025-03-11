@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import {DatePipe, NgForOf} from '@angular/common';
 import {LocalStorageService} from '../shared/services/local-storage.service';
 
+
+
 @Component({
   selector: 'app-chat-component',
   imports: [

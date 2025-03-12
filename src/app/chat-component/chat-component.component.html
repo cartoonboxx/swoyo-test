@@ -1,18 +1,24 @@
 <div class="chat">
   <div class="chat__header">
-    <h1>Chat Messanger</h1>
+    <h1>Chat Messenger</h1>
   </div>
   <div class="chat__content">
-    <div class="chat__content__message" *ngFor="let message of messages">
-      <div class="chat__content__message__header">
-        <h3>{{ message.username }}</h3>
-        <p>{{ currentDate | date:'HH:mm:ss' }}</p>
+    <div class="chat__content__message {{ isYour }}" *ngFor="let message of messages">
+      <h3>{{ message.username }}</h3>
+      <div class="chat__content__message__footer">
+        <span>{{ message.date | date:'HH:mm' }}</span>
+        <p>{{ message.message }}</p>
       </div>
-      <p>{{ message.message }}</p>
     </div>
   </div>
-  <form class="chat__form" (submit)="alertMessage($event)">
-    <textarea name="message" class="chat__form__input" placeholder="Ваше сообщение" [(ngModel)]="message"></textarea>
+  <form class="chat__form" (submit)="sendAndSaveMessage($event)">
+    <textarea
+      name="message"
+      (keydown.enter)="sendAndSaveMessage($event)"
+      class="chat__form__input"
+      placeholder="Ваше сообщение"
+      [(ngModel)]="message"
+    ></textarea>
     <button
       type="submit"
       class="chat__form__btn"

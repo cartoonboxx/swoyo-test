@@ -37,7 +37,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 20px;
-    padding-top: 20px;
+    padding: 20px 0;
 
     &__message {
       margin-left: 40px;
@@ -58,15 +58,31 @@
       color: white;
 
       p {
-        text-wrap: wrap;
         word-break: break-all;
       }
 
-      &__header {
+      &__footer {
         display: flex;
         justify-content: center;
-        align-items: center;
-        flex-direction: column-reverse;
+        align-items: flex-start;
+        flex-direction: row-reverse;
+        gap: 20px;
+
+        p {
+          width: auto;
+          height: 100%;
+          padding: 0;
+          margin: 0;
+        }
+        span {
+          width: auto;
+          height: 100%;
+          display: flex;
+          justify-content: flex-end;
+          align-self: flex-end;
+
+          color: #c9c9c9
+        }
       }
 
       //background-color: black;

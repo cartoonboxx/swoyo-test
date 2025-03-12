@@ -2,6 +2,7 @@ import {Component, inject} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {DatePipe, NgForOf} from '@angular/common';
 import {LocalStorageService} from '../shared/services/local-storage.service';
+import {ChatServiceService} from '../shared/services/chat-service.service';
 
 @Component({
   selector: 'app-chat-component',
@@ -16,41 +17,37 @@ import {LocalStorageService} from '../shared/services/local-storage.service';
 export class ChatComponentComponent {
 
   private _localStorage = inject(LocalStorageService);
+  private chatService = inject(ChatServiceService);
 
   public message: string = '';
-  public messages: { username: string; message: string, date: Date }[] = this._localStorage.has('messages') ? JSON.parse(this._localStorage.get('messages')) : [];
+  public messages: {username: string, message: string, date: Date}[] = [];
 
-  // public isYour = JSON.parse(this._localStorage.get('userData')).username 'your'
-  public isYour: string = '';
+  public userName: string = ''
 
-  constructor() {
-    console.log(this.messages)
+  ngOnInit() {
+    this.userName = JSON.parse(
+      this._localStorage.get('userData')
+    ).username;
+
+    this.chatService.messages$.subscribe((messages: {username: string, message: string, date: Date}[]) => {
+      this.messages = messages;
+    })
   }
 
   public sendAndSaveMessage(event: Event | KeyboardEvent): void {
     // event [KeyboardEvent | Submit]
-    event.preventDefault(); // Останавливаем стандартное поведение формы
+    event.preventDefault();
 
     if (event instanceof KeyboardEvent && event.key !== "Enter") {
-      return; // Если это не Enter, выходим
+      return;
     }
 
     if (!this.message.trim()) {
-      return; // Если сообщение пустое — не отправляем
+      return;
     }
 
-    const userData = JSON.parse(this._localStorage.get('userData'))
-    console.log(userData);
-    this.messages.push({
-      username: userData.username,
-      message: this.message.trim(),
-      date: new Date()
-    })
-
+    this.chatService.sendMessage(this.userName, this.message.trim());
     this.message = '';
-    console.log(this.messages)
-
-    this._localStorage.set('messages', JSON.stringify(this.messages))
 
   }
 

@@ -25,6 +25,8 @@
     justify-content: center;
     background-color: var(--white-02);
     align-items: center;
+    flex-direction: column;
+
   }
 
   &__content {
@@ -40,7 +42,9 @@
     padding: 20px 0;
 
     &__message {
+
       margin-left: 40px;
+      margin-right: 40px;
       padding: 16px;
       width: auto;
       height: auto;
@@ -50,12 +54,12 @@
         max-width: 70%;
       }
 
-      background-color: var(--light-blue-01);
+      background-color: #ffffff;
 
       border-top-right-radius: 18px;
-      border-bottom-right-radius: 18px;
       border-top-left-radius: 18px;
-      color: white;
+      color: black;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
       p {
         word-break: break-all;
@@ -85,7 +89,18 @@
         }
       }
 
-      //background-color: black;
+      &.your {
+        background-color: var(--light-blue-01);
+        color: white;
+        align-self: flex-start;
+        border-bottom-right-radius: 18px;
+      }
+
+      &:not(.your) {
+        align-self: flex-end;
+        border-bottom-left-radius: 18px;
+
+      }
     }
 
 

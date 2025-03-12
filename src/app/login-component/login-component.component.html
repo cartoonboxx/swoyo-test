@@ -1,11 +1,13 @@
-<form class="login-form" [formGroup]="loginForm">
+<form class="login-form" (ngSubmit)="createNewUser($event)">
   <h1>Регистрация</h1>
   <div class="login-form__input-box">
     <input class="login-form__input-box__input"
            type="text"
            placeholder="Имя пользователя"
            required
+           [(ngModel)]="username"
+           name="username"
     >
   </div>
-  <button class="login-form__btn" (click)="createNewUser($event)">Создать</button>
+  <button class="login-form__btn">Создать</button>
 </form>

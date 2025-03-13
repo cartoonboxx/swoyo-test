@@ -1,8 +1,8 @@
-import {Component, inject} from '@angular/core';
+import {ChangeDetectorRef, Component, inject} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {DatePipe, NgForOf} from '@angular/common';
-import {LocalStorageService} from '../shared/services/local-storage.service';
-import {ChatServiceService} from '../shared/services/chat-service.service';
+import {ChatServiceService, Message} from '../shared/services/chat-service.service';
+import {UserService} from "../shared/services/user.service";
 
 @Component({
   selector: 'app-chat-component',
@@ -16,21 +16,21 @@ import {ChatServiceService} from '../shared/services/chat-service.service';
 })
 export class ChatComponentComponent {
 
-  private _localStorage = inject(LocalStorageService);
-  private chatService = inject(ChatServiceService);
+  private _chatService = inject(ChatServiceService);
+  private _userData = inject(UserService);
+  private _pageDetector = inject(ChangeDetectorRef);
 
   public message: string = '';
-  public messages: {username: string, message: string, date: Date}[] = [];
+  public messages: Message[] = [];
 
   public userName: string = ''
 
   ngOnInit() {
-    this.userName = JSON.parse(
-      this._localStorage.get('userData')
-    ).username;
+    this.userName = this._userData.getUserName();
 
-    this.chatService.messages$.subscribe((messages: {username: string, message: string, date: Date}[]) => {
+    this._chatService.messages$.subscribe((messages: Message[]) => {
       this.messages = messages;
+      this._pageDetector.detectChanges(); // Форсируем обновление UI
     })
   }
 
@@ -46,9 +46,15 @@ export class ChatComponentComponent {
       return;
     }
 
-    this.chatService.sendMessage(this.userName, this.message.trim());
+    console.log(this.message.trim())
+    this._chatService.sendMessage(this.userName, this.message.trim());
     this.message = '';
 
+  }
+
+  public changeUser(): void {
+    this._userData.clearUser();
+    window.location.reload()
   }
 
 }

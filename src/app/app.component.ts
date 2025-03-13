@@ -8,7 +8,7 @@ import {NgIf} from '@angular/common';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ChatComponentComponent, LoginComponentComponent, NgIf],
+  imports: [ChatComponentComponent, LoginComponentComponent, NgIf],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

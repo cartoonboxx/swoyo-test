@@ -1,6 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LocalStorageService} from '../shared/services/local-storage.service';
+import {UserService} from "../shared/services/user.service";
 
 @Component({
   selector: 'app-login-component',
@@ -13,7 +14,7 @@ import {LocalStorageService} from '../shared/services/local-storage.service';
 })
 export class LoginComponentComponent {
 
-  private _localStorage = inject(LocalStorageService)
+  public userData = inject(UserService)
 
   public username: string = '';
 
@@ -26,9 +27,7 @@ export class LoginComponentComponent {
       return
     }
 
-    this._localStorage.set('userData', JSON.stringify({
-      username: validName
-    }))
+    this.userData.setUserName(validName);
 
     window.location.reload()
 

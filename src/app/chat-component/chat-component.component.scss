@@ -1,3 +1,20 @@
+button {
+  width: 100%;
+  height: 40px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border: none;
+  border-bottom: 1px solid #c9c9c9;
+  transition: .2s;
+
+  &:hover {
+    cursor: pointer;
+    transition: .2s;
+    background-color: #6a994e;
+    color: white
+  }
+}
+
 .chat {
   width: 80vw;
   height: 80vh;
@@ -67,13 +84,13 @@
 
       &__footer {
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: flex-start;
         flex-direction: row-reverse;
         gap: 20px;
 
         p {
-          width: auto;
+          width: 100%;
           height: 100%;
           padding: 0;
           margin: 0;
@@ -82,9 +99,10 @@
           width: auto;
           height: 100%;
           display: flex;
-          justify-content: flex-end;
+          //justify-content: flex-end;
           align-self: flex-end;
-
+          // position: ;
+          //right: 100px;
           color: #c9c9c9
         }
       }
